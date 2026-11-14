@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>24 Days of Solo Festive Joy</title>
+<link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#0c2b2c;--bg2:#2a1237;--ink:#fff6e4;--mut:#c6d4cc;--gold:#f7c95c;--card:#ffffff14;--line:#ffffff38;--inside:#3a2350;--red:#c23a35;--green:#2f8052;--wood:#b98a3e;--field:#ffffff1c;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg1:#fff3df;--bg2:#fbd9d0;--ink:#2d1b17;--mut:#6b4e45;--gold:#a8700e;--card:#ffffffb8;--line:#0000002e;--inside:#fff;--field:#ffffffd0}}
+:root[data-theme="light"]{--bg1:#fff3df;--bg2:#fbd9d0;--ink:#2d1b17;--mut:#6b4e45;--gold:#a8700e;--card:#ffffffb8;--line:#0000002e;--inside:#fff;--field:#ffffffd0}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100vh;background:linear-gradient(160deg,var(--bg1),var(--bg2)) fixed;color:var(--ink);font:400 16px/1.5 Nunito,system-ui,sans-serif}
+header{text-align:center;padding:22px 16px 6px}
+h1{font:700 clamp(2rem,8vw,3.2rem)/1.05 "Mountains of Christmas",Georgia,serif;margin:0;color:var(--gold);text-shadow:0 2px 0 #0004}
+header p{margin:6px auto 0;color:var(--mut);max-width:34ch}
+.bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0 4px}
+.bar button,.btns button{font:700 .9rem Nunito,system-ui,sans-serif;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer}
+.bar button:hover,.btns button:hover{border-color:var(--gold)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.prog{text-align:center;color:var(--mut);font-size:.9rem;margin:6px 0 10px}
+main{max-width:760px;margin:0 auto;padding:6px 14px 40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:12px}
+.cell{position:relative;aspect-ratio:3/4;perspective:700px;border:0;padding:0;background:none;cursor:pointer;font:inherit;color:inherit;--c:var(--red)}
+.cell:nth-child(3n+2){--c:var(--green)}.cell:nth-child(3n){--c:var(--wood)}
+.inside{position:absolute;inset:0;border-radius:10px;background:var(--inside);border:3px solid var(--wood);display:grid;place-items:center;font-size:2.1rem;overflow:hidden;box-shadow:inset 0 0 18px #0006}
+.inside img{width:100%;height:100%;object-fit:cover}
+.done .inside::after{content:"✓";position:absolute;right:4px;bottom:2px;font-size:1rem;background:var(--green);color:#fff;border-radius:50%;width:20px;height:20px;line-height:20px;text-align:center}
+.leaf{position:absolute;top:0;bottom:0;background:var(--c);border:3px solid #0003;transition:transform .7s cubic-bezier(.3,.7,.3,1);backface-visibility:hidden;box-shadow:inset 0 0 0 4px #ffffff22}
+.door .leaf{left:0;right:0;border-radius:10px;transform-origin:left}
+.door .leaf::after{content:"";position:absolute;right:9px;top:52%;width:9px;height:9px;border-radius:50%;background:var(--gold)}
+.win .leaf{width:50%;transform-origin:left;left:0;border-radius:10px 0 0 10px;background:linear-gradient(90deg,transparent calc(100% - 3px),#0004 0),linear-gradient(transparent calc(50% - 2px),#0005 0 calc(50% + 2px),transparent 0),var(--c)}
+.win .leaf.r{left:auto;right:0;transform-origin:right;border-radius:0 10px 10px 0}
+.num{position:absolute;inset:0;display:grid;place-items:center;font:700 1.7rem "Mountains of Christmas",Georgia,serif;color:#fff8e6;text-shadow:0 2px 3px #0008;pointer-events:none;transition:opacity .3s}
+.win .num{background:radial-gradient(circle,var(--c) 38%,transparent 40%);background-size:44px 44px;background-position:center;background-repeat:no-repeat}
+.open .num{opacity:0}
+.open .leaf{transform:rotateY(-118deg)}.open .win .leaf.r,.open.win .leaf.r{transform:rotateY(118deg)}
+.cell:hover:not(.open){transform:translateY(-2px)}
+.cell:not(.open):hover .leaf{transform:rotateY(-12deg)}.cell.win:not(.open):hover .leaf.r{transform:rotateY(12deg)}
+.back{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;padding:16px;z-index:5}
+.back.on{display:flex}
+.modal{width:min(440px,100%);max-height:calc(100% - 8px);overflow:auto;background:var(--bg1);border:2px solid var(--gold);border-radius:18px;padding:18px;position:relative;box-shadow:0 20px 60px #0008}
+.stage{position:relative;height:190px;border-radius:12px;background:var(--inside);display:grid;place-items:center;overflow:hidden;margin-bottom:12px}
+.stage img{max-width:100%;max-height:100%;object-fit:cover;width:100%;height:100%}
+.stage .em{font-size:5rem;line-height:1}
+.stage>.sub{display:grid;place-items:center;width:100%;height:100%}
+.m-bounce .sub>*{animation:bounce .9s ease-in-out infinite}.m-spin .sub>*{animation:spin 3s linear infinite}.m-sway .sub>*{animation:sway 2s ease-in-out infinite}.m-pulse .sub>*{animation:pulse 1.4s ease-in-out infinite}
+@keyframes bounce{50%{transform:translateY(-22px) scale(1.05)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes sway{0%,100%{transform:rotate(-9deg)}50%{transform:rotate(9deg)}}@keyframes pulse{50%{transform:scale(1.14)}}
+.p{position:absolute;top:-24px;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(240px) rotate(240deg);opacity:.2}}
+.p.up{top:auto;bottom:-20px;animation-name:rise}@keyframes rise{to{transform:translateY(-240px) scale(.4);opacity:0}}
+.modal h2{font:700 1.6rem "Mountains of Christmas",Georgia,serif;margin:0 0 4px;color:var(--gold)}
+.modal p{margin:0 0 12px;font-size:1.08rem}
+.tune{color:var(--mut);font-size:.88rem;margin-bottom:12px}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btns .main{background:var(--gold);color:#2a1a05;border-color:var(--gold)}
+label{display:block;font-weight:700;font-size:.9rem;margin:10px 0 3px}
+input[type=text],textarea,select{width:100%;font:inherit;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+select option{color:#222}
+textarea{min-height:80px;resize:vertical}
+.row{display:flex;gap:8px}.row>*{flex:1}.row>.sm{flex:0 0 76px}
+.hide{display:none}
+.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gold);color:#2a1a05;padding:8px 14px;border-radius:999px;font-weight:700;z-index:9;display:none}
+@media (prefers-reduced-motion:reduce){.leaf{transition:none}.stage .sub>*{animation:none!important}}
+</style>
+</head>
+<body>
+<header>
+<h1>24 Days of Solo Festive Joy</h1>
+<p>Tap a door or window to open today’s treat. Every one can be changed.</p>
+<div class="bar"><button id="snd" aria-pressed="true">🔔 Sound on</button><button id="rst">Shut all doors</button><button id="dflt">Restore my list</button></div>
+<div class="prog" id="prog"></div>
+</header>
+<main><div class="grid" id="grid"></div></main>
+<div class="back" id="back" role="dialog" aria-modal="true" aria-label="Day details"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const D=[["🍷","Pour a big glass of wine (or a favourite bubbly) and queue up a festive movie marathon."],["🛁","Put on a hydrating sheet mask and take an extra-long hot shower or bubble bath."],["🥡","Order your favourite takeaway so you have zero dishes to wash tonight."],["💐","Buy yourself a fresh bunch of flowers or a festive candle just because."],["📖","Put your phone on “Do Not Disturb” for two hours and read a book in peace."],["☕","Make a decadent hot chocolate with marshmallows, whipped cream, or a splash of Amarula."],["🥞","Have breakfast for dinner in your pyjamas."],["🥐","Treat yourself to a fancy coffee and a pastry from your favourite local café."],["💃","Put on a loud playlist and have a solo kitchen dance party while cooking dinner."],["💅","Do an at-home manicure or pedicure with a bold, festive nail colour."],["🛏️","Go to bed an hour earlier than usual with fresh, clean bedsheets."],["🍫","Pick up a small box of luxury chocolates and eat whichever ones you want without sharing."],["🎄","Take a slow evening drive or walk through a neighbourhood known for great Christmas lights."],["🌟","Write down five things you are proud of accomplishing this year."],["🧀","Make a charcuterie board for one with your favourite cheeses, crackers, and fruit."],["📺","Rewatch your absolute favourite comfort TV show episode or movie from your childhood."],["🎁","Buy yourself a small, wrapped gift you actually want and put it under the tree."],["🧘","Spend 20 minutes stretching or doing a relaxing bedtime yoga video."],["🍪","Bake a batch of festive biscuits or buy pre-made dough and eat them warm out of the oven."],["📞","Call or send a voice note to a friend you have been meaning to catch up with."],["🥩","Have a “roast dinner” or fancy steak night for one, complete with a nice drink."],["🧺","Declutter one small drawer or handbag so you feel organized before the new year."],["😴","Sleep in as late as possible (or take an unapologetic afternoon nap)."],["🎅","Open the present you bought yourself on Day 17 while wearing your coziest loungewear."]];
+const T={"Jingle Bells":[64,1,64,1,64,2,64,1,64,1,64,2,64,1,67,1,60,1.5,62,.5,64,4],
+"We Wish You a Merry Christmas":[62,1,67,1,67,.5,69,.5,67,.5,66,.5,64,1,64,1,64,1,69,1,69,.5,71,.5,69,.5,67,.5,66,1,62,1,71,1,71,.5,72,.5,71,.5,69,.5,67,1,64,1,62,.5,62,.5,64,1,69,1,66,1,67,2],
+"Silent Night":[67,1.5,69,.5,67,1,64,3,67,1.5,69,.5,67,1,64,3,74,2,74,1,71,3,72,2,72,1,67,3],
+"Deck the Halls":[72,1.5,71,.5,69,1,67,1,65,1,67,1,69,1,65,1,67,.5,69,.5,71,.5,67,.5,69,1.5,67,.5,65,1,64,1,62,2],
+"Joy to the World":[72,1,71,.75,69,.5,67,1.5,65,1,64,1,62,1,60,1.5]};
+const TN=Object.keys(T),MO=[["still","Still"],["bounce","Bounce"],["spin","Spin"],["sway","Sway"],["pulse","Pulse"],["snow","Snowfall"],["sparkle","Sparkles"]];
+const KEY="advent-solo-v1";let S,cur=-1,edit=false,snd=true;
+const mk=()=>D.map((d,i)=>({e:d[0],t:d[1],pic:"",mo:["bounce","sway","pulse","spin","snow","sparkle"][i%6],tune:TN[i%5],open:false,done:false}));
+function load(){try{const r=localStorage.getItem(KEY);S=r?JSON.parse(r):null}catch(e){S=null}if(!Array.isArray(S)||S.length!==24)S=mk()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));return true}catch(e){toast("Couldn’t save that picture – try a smaller one.");return false}}
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(t._t);t._t=setTimeout(()=>t.style.display="none",2600)}
+/* sound */
+let ac,master,tok=0;
+function play(name){stopSound();if(!snd||!T[name])return;try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();ac.resume();master=ac.createGain();master.gain.value=.5;master.connect(ac.destination);let t=ac.currentTime+.05;const s=T[name],b=.3;for(let i=0;i<s.length;i+=2){const f=440*Math.pow(2,(s[i]-69)/12),d=s[i+1]*b;note(f,t,d);t+=d}}catch(e){}}
+function note(f,t,d){[[f,.5,"triangle"],[f*2,.12,"sine"]].forEach(([fr,v,ty])=>{const o=ac.createOscillator(),g=ac.createGain();o.type=ty;o.frequency.value=fr;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d*.95);o.connect(g);g.connect(master);o.start(t);o.stop(t+d)})}
+function stopSound(){if(master&&ac){master.gain.setTargetAtTime(0,ac.currentTime,.03)}}
+/* grid */
+function inner(it){return it.pic?`<img src="${it.pic}" alt="">`:esc(it.e)}
+function draw(){const g=$("#grid");g.innerHTML=S.map((it,i)=>{const w=i%2===1;return`<button class="cell ${w?"win":"door"}${it.open?" open":""}${it.done?" done":""}" data-i="${i}" aria-label="${w?"Window":"Door"} ${i+1}${it.open?", open":""}"><div class="inside">${inner(it)}</div>${w?'<div class="leaf"></div><div class="leaf r"></div>':'<div class="leaf"></div>'}<div class="num">${i+1}</div></button>`}).join("");
+$("#prog").textContent=S.filter(x=>x.done).length+" of 24 treats enjoyed"}
+$("#grid").addEventListener("click",e=>{const c=e.target.closest(".cell");if(!c)return;const i=+c.dataset.i;if(!S[i].open){S[i].open=true;c.classList.add("open");save()}play(S[i].tune);setTimeout(()=>show(i,false),520)});
+/* modal */
+let pt;
+function particles(st,kind){clearInterval(pt);if(kind!=="snow"&&kind!=="sparkle")return;pt=setInterval(()=>{if(!st.isConnected)return clearInterval(pt);const p=document.createElement("span");p.className="p"+(kind==="sparkle"?" up":"");p.textContent=kind==="snow"?"❄":["✨","⭐","✦"][Math.random()*3|0];p.style.left=Math.random()*95+"%";p.style.fontSize=10+Math.random()*16+"px";p.style.animationDuration=2+Math.random()*2+"s";st.appendChild(p);setTimeout(()=>p.remove(),4200)},260)}
+function show(i,ed){cur=i;edit=ed;const it=S[i],m=$("#modal");
+if(!ed){m.innerHTML=`<div class="stage m-${esc(it.mo)}"><div class="sub">${it.pic?`<img src="${it.pic}" alt="">`:`<span class="em">${esc(it.e)}</span>`}</div></div><h2>Day ${i+1}</h2><p>${esc(it.t)}</p><div class="tune">${it.tune&&T[it.tune]?"♪ "+esc(it.tune):"No tune"}</div><div class="btns"><button class="main" id="tick">${it.done?"✓ Enjoyed – undo":"I did it ✓"}</button><button id="rep">♪ Play again</button><button id="ed">✎ Edit</button><button id="shut">Shut door</button><button id="x">Close</button></div>`;
+particles(m.querySelector(".stage"),it.mo);
+$("#tick").onclick=()=>{it.done=!it.done;save();draw();show(i,false);if(it.done)toast("Lovely. Enjoy every bit.")};
+$("#rep").onclick=()=>play(it.tune);$("#ed").onclick=()=>show(i,true);
+$("#shut").onclick=()=>{it.open=false;save();draw();closeM()};$("#x").onclick=closeM}
+else{m.innerHTML=`<h2>Edit day ${i+1}</h2><label for="et">What to do</label><textarea id="et">${esc(it.t)}</textarea><div class="row"><div class="sm"><label for="ee">Emoji</label><input type="text" id="ee" maxlength="4" value="${esc(it.e)}"></div><div><label for="ef">Picture</label><input type="file" id="ef" accept="image/*"></div></div><button class="${it.pic?"":"hide"}" id="rp" style="margin-top:6px;font:inherit;background:none;border:0;color:var(--gold);cursor:pointer;text-decoration:underline">Remove picture</button><div class="row"><div><label for="em">Movement</label><select id="em">${MO.map(([v,n])=>`<option value="${v}"${it.mo===v?" selected":""}>${n}</option>`).join("")}</select></div><div><label for="et2">Tune</label><select id="et2"><option value=""${it.tune?"":" selected"}>No tune</option>${TN.map(n=>`<option${it.tune===n?" selected":""}>${n}</option>`).join("")}</select></div></div><div class="btns" style="margin-top:14px"><button class="main" id="sv">Save changes</button><button id="cn">Cancel</button></div>`;
+let pic=it.pic;$("#ef").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const k=Math.min(1,480/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=im.width*k;c.height=im.height*k;c.getContext("2d").drawImage(im,0,0,c.width,c.height);pic=c.toDataURL("image/jpeg",.8);toast("Picture added – save to keep it.")};im.src=r.result};r.readAsDataURL(f)};
+$("#rp").onclick=()=>{pic="";$("#rp").classList.add("hide");toast("Picture removed – save to confirm.")};
+$("#sv").onclick=()=>{const old={...it};Object.assign(it,{t:$("#et").value.trim()||it.t,e:$("#ee").value.trim()||it.e,pic,mo:$("#em").value,tune:$("#et2").value});if(!save()){Object.assign(it,old);return}draw();show(i,false);play(it.tune)};
+$("#cn").onclick=()=>show(i,false)}
+$("#back").classList.add("on");$("#x,#ed")}
+function closeM(){$("#back").classList.remove("on");clearInterval(pt);stopSound();cur=-1}
+$("#back").addEventListener("click",e=>{if(e.target.id==="back")closeM()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&cur>-1)closeM()});
+$("#snd").onclick=e=>{snd=!snd;e.target.textContent=snd?"🔔 Sound on":"🔕 Sound off";e.target.setAttribute("aria-pressed",snd);if(!snd)stopSound()};
+$("#rst").onclick=()=>{S.forEach(x=>{x.open=false;x.done=false});save();draw()};
+$("#dflt").onclick=()=>{if(confirm("Put all 24 days back to the original list? Your edits and pictures will be removed.")){S=mk();save();draw()}};
+load();draw();
+</script>
+</body>
+</html>
